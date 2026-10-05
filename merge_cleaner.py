@@ -1,5 +1,10 @@
 import yaml
 
+# Makes sure the merges look nice while protecting if you actually loaded an entire config file(idk if that even works, it might)
+def list_representer(dumper, data):
+    return dumper.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True)
+yaml.add_representer(list, list_representer)
+
 # Load the content of the YAML file
 with open('merged.yaml', 'r', encoding='utf-8') as file:
     data = yaml.safe_load(file)
